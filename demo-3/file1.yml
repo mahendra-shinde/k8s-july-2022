@@ -1,0 +1,22 @@
+# name: Mahendra Shinde
+
+name:
+  firstName: Mahendra
+  lastName:  Shinde
+
+languages:
+- Java    # Programming langauges
+- C#
+- NodeJS
+
+Address:
+  planet:
+    name: earth
+    country:   
+  
+
+developersTeam:
+- firstName: Mahendra
+  lastName: Shinde
+- firstName: Sonali
+  lastName: Shinde

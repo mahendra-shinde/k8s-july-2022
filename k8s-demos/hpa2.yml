@@ -1,0 +1,28 @@
+# HPA v2 is available on Latest version of K8S (1.23+)
+# For older version: use "autoscaling/v2beta2" (1.21+)
+# For much older version (1.20-), use "autoscaling/v1"
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa2
+  namespace: mahendra
+spec:
+  # Can be used with :> ReplicaSet, StatefulSet & Deployment
+  # The Target (ReplicaSet / Deployment / StatefulSet) must be in SAME NAMESPACE as HPA
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: rs1
+  minReplicas: 1
+  maxReplicas: 10
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 15
+  metrics:
+  - type: Resource
+    resource:
+    # HPA2 supports : cpu, memory & custom-object
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50

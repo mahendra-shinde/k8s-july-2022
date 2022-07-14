@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs1
+  namespace: mahendra
+spec:
+  selector:
+    matchLabels:
+      app: app1
+  replicas: 10 # Desired Replicas
+  template:
+    metadata:
+      labels:
+        app: app1 ## Match with line #9
+    spec:
+      containers:
+        - name: web
+          image: mahendrshinde/myweb:1
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 10m      # Use only 1/01 of logical cpu
+              # cpu: 100m     Use only 1/10 of logical cpu
+              # cpu: 1000m    Use one full logical cpu (1/1)
+              memory: 32Mi

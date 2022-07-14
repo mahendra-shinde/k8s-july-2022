@@ -1,0 +1,18 @@
+## Version is STRING, so put Double or Single Quotes
+version: "3.5"
+
+## List of containerized applications
+services:
+  app1: ## User defined name
+    image: mahendrshinde/myweb:1
+    deploy:
+      replicas: 2
+
+  app2: ## User defined name
+    image: mahendrshinde/myweb:2
+    deploy:
+      replicas: 5
+
+volumes:
+  vol1:
+    

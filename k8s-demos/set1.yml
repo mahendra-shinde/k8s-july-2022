@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: set1
+spec:
+  selector:
+    matchLabels:
+      app: app4
+  serviceName: web
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: app4
+    spec:
+      containers:
+      - name: web
+        image: mahendrshinde/myweb:1
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: app4
+  ## A Headless service will have NO IP Address
+  clusterIP: None
+  ports:
+  - port: 80
+    targetPort: 80

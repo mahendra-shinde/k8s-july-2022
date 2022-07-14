@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  namespace: mahendra
+  labels:
+    name: app1
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  # Which ingress controller to use ?
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        ## path: "/mahendra/v1(.*)"
+        path: "/v1(.*)"
+        backend:
+          service:
+            name: webapp1-svc
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: "/v2(.*)"
+        backend:
+          service:
+            name: webapp2-svc
+            port: 
+              number: 80  
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webapp3-svc
+            port: 
+              number: 80

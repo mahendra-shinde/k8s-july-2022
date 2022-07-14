@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod
+  labels:
+    name: myapp
+spec:
+  volumes:
+    - name: logvolume
+      persistentVolumeClaim:
+        claimName: mypvc
+  containers:
+  - name: myapp
+    image: mahendrshinde/myweb:1
+    volumeMounts:
+      - mountPath: /var/log/nginx
+        name: logvolume
+    resources:
+      limits:
+        memory: "32Mi"
+        cpu: "50m"
+    ports:
+      - containerPort: 80

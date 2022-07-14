@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  namespace: mahendra
+spec:
+  type: ClusterIP
+  selector:
+    app: app2
+  ports:
+  - port: 80
+    targetPort: 80

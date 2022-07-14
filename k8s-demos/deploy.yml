@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy
+  namespace: mahendra
+spec:
+  replicas: 3
+  minReadySeconds: 5
+  strategy: 
+    type: Recreate
+    
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+      - name: myapp
+        image: mahendrshinde/myweb:3
+        readinessProbe:
+          httpGet:
+            port: 80                  # Application/container port
+            path: /index.html         # Path / Page to use as Health Page
+            scheme: HTTP              # Http or Https probes
+          initialDelaySeconds: 10     # Delay the FIRST Probe
+          failureThreshold: 3         # Mark "Unhealthy" when number of consecutive probes fail.
+          periodSeconds: 5            # Time between TWO probes
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80

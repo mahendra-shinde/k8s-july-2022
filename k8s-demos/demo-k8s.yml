@@ -1,0 +1,8 @@
+## Kubernetes Manifest : YAML files that describe Kubernetes Workload component
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mahendra
+  labels:
+    env: prod
+    client: xyz
